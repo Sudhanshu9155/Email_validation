@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Email Validator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+  <div class="card">
+    <h1>Email Validator</h1>
+    <form action="/validate" method="post" autocomplete="off">
+      <label for="email">Enter email:</label>
+      <input id="email" name="email" type="text" placeholder="you@example.com" value="{{ email|e }}" required />
+      <button type="submit">Validate</button>
+    </form>
+
+    {% if result is not none %}
+      <div class="result {{ 'valid' if result.valid else 'invalid' }}">
+        <strong>{{ 'Valid' if result.valid else 'Invalid' }}:</strong>
+        <span>{{ result.message }}</span>
+      </div>
+    {% endif %}
+
+    <div class="examples">
+      <p><strong>Try these:</strong></p>
+      <ul>
+        <li  style="color:green;">valid: alice.smith+test23478@gmail.com</li>
+        <li  style="color:green;">valid: .alice2004@gmail.com</li>
+        <li  style="color:red;">invalid: bob@24@gmail.com</li>
+        <li  style="color:red;">invalid: charlie@localhost</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
